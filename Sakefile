@@ -1,0 +1,24 @@
+
+
+task <turn-off-alarm>, {
+    say "Turned off alarm. Would have liked 5 more minutes, though."
+}
+
+task 'groom-myself', {
+    say "Brushed teeth.";
+    say "Showered.";
+    say "Shaved.";
+}
+
+task "make-coffee", { 
+    my $cups = %*ENV<COFFEE_CUPS> // 2;
+    say "make $cups of coffee.  Shakes are gone." 
+}
+
+task 'walk-dog', {
+    say 'Dog walked';
+}
+
+task 'ready-for-the-day' => <turn-off-alarm groom-myself make-coffee walk-dog>, {
+    say "Ready for the day!";
+}

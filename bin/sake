@@ -1,0 +1,10 @@
+#!/usr/bin/env perl6
+
+use v6;
+use Sake;
+
+sub MAIN (*@tasks, :$file = 'Sakefile') {
+    slurp($file).eval;
+    for @tasks -> $t {  execute($t); }
+}
+
