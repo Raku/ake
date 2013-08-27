@@ -1,9 +1,9 @@
 {
-    "name" : "sake"
+    "name" : "sake",
     "version"  : "0.0.1",
-    "description" : "A make-a-like implemented in Perl 6"
+    "description" : "A make-a-like implemented in Perl 6",
     "author" : "Jonathan Scott Duff <duff@pobox.com>",
-    "depends" : [  ],
+    "depends" : [],
     "source-url" : "git://github.com/perlpilot/p6-sake.git"
 }
 
