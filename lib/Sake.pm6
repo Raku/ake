@@ -15,7 +15,11 @@ class Sake-Task {
 }
 
 sub execute($task) is export {
-    %TASKS{$task}.execute;
+    if %TASKS.exists($task) {
+        %TASKS{$task}.execute;
+    } else {
+        die "No such task -- $task";
+    }
 }
 
 proto sub task(|) is export { * }
