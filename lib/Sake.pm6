@@ -29,6 +29,7 @@ multi sub task(Str $name, &body) {
 }
 
 multi sub task(Pair $name-deps, &body) {
-    my ($name,@deps) := $name-deps.kv;      # unpack name and dependencies
+    my ($name,$dep) := $name-deps.kv;      # unpack name and dependencies
+    my @deps = $dep.list;
     %TASKS{$name} = Sake-Task.new(:$name, :&body, :@deps);
 }
