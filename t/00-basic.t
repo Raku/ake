@@ -2,6 +2,8 @@ use v6;
 use Test;
 use Sake;
 
+plan 4;
+
 #eval_lives_ok("use Sake;", "module can be used without error");
 
 my $x = "";
