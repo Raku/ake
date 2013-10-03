@@ -45,8 +45,12 @@ multi sub task(Pair $name-deps, &body) {
 
 proto sub file(|) is export { * }
 
+my sub touch (Str $filename) {
+    shell("touch $filename");
+}
+
 multi sub file(Str $name, &body) {
-    return make_task($name, &body, :cond(sub { $name.path !~~ :e; }) );
+    return make_task($name, sub { &body.(); touch($name) }, :cond(sub { $name.path !~~ :e; }) );
 }
 
 multi sub file(Pair $name-deps, &body) {
@@ -56,7 +60,7 @@ multi sub file(Pair $name-deps, &body) {
         my $f = $name.path;
         !($f ~~ :e) || $f.modified < all(map { $_.modified }, grep { $_ ~~ IO::Path }, @deps);
     };
-    return make_task($name, &body, :@deps, :cond($cond));
+    return make_task($name, sub { &body.(); touch($name) }, :@deps, :cond($cond));
 }
 
 
