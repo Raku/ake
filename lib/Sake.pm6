@@ -17,7 +17,7 @@ class Sake-Task {
 }
 
 sub execute($task) is export {
-    if %TASKS.exists($task) {
+    if %TASKS{$task}:exists {
         %TASKS{$task}.execute;
     } else {
         # TODO something more awesome here
