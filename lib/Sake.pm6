@@ -54,8 +54,7 @@ multi sub file(Pair $name-deps, &body) {
     my @deps = $deps.list;                  # so that A => B and A => <B C D> both work
     my $cond = {
         my $f = $name.path;
-        leave(True) if $f !~~ :e;
-        leave($f.modified < all(map { $_.modified }, grep { $_ ~~ IO::Path }, @deps));
+        !($f ~~ :e) || $f.modified < all(map { $_.modified }, grep { $_ ~~ IO::Path }, @deps);
     };
     return make_task($name, &body, :@deps, :cond($cond));
 }
