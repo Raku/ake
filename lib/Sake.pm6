@@ -1,4 +1,4 @@
-module Sake;
+unit module Sake;
 
 our %TASKS;
 
