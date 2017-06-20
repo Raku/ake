@@ -1,4 +1,5 @@
 {
+    "perl" : "6.*",
     "name" : "sake",
     "version"  : "0.0.1",
     "description" : "A make-a-like implemented in Perl 6",
