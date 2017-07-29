@@ -5,8 +5,7 @@ use Sake;
 
 sub MAIN (*@tasks, :$file = 'Sakefile') {
     die "No tasks given!" unless +@tasks > 0;
-    die "Could not find file $file!" unless $file.IO.path ~~ :e;
-    slurp($file).eval;
+    die "Could not find file $file!" unless $file.IO ~~ :e;
+    EVALFILE $file;
     for @tasks -> $t {  execute($t); }
 }
-
