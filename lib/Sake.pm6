@@ -11,7 +11,7 @@ class Sake-Task {
     method execute { 
         return unless self.cond.();
         for self.deps -> $d { execute($d); }
-        self.body.(); 
+        .() with self.body;
     }
 
 }
@@ -36,7 +36,7 @@ multi sub task(Str $name, &body) {
     make_task($name, &body);
 }
 
-multi sub task(Pair $name-deps, &body) {
+multi sub task(Pair $name-deps, &body?) {
     my ($name,$deps) := $name-deps.kv;      # unpack name and dependencies
     my @deps = $deps.list;                  # so that A => B and A => <B C D> both work
     return make_task($name, &body, :@deps);

@@ -2,7 +2,7 @@ use v6;
 use Test;
 use Sake;
 
-plan 4;
+plan 5;
 
 #eval_lives_ok("use Sake;", "module can be used without error");
 
@@ -21,3 +21,6 @@ is($x,"sd", "single dependency works fine");
 
 (task "bedrock" => <fred dino>, { $x = "md"; }).execute;
 is($x,"md", "multiple dependencies work fine");
+
+(task "wilma" => <fred>).execute;
+is($x,"meth", "body is optional");
