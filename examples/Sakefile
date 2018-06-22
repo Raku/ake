@@ -1,5 +1,3 @@
-
-
 task <turn-off-alarm>, {
     say "Turned off alarm. Would have liked 5 more minutes, though."
 }
@@ -10,9 +8,9 @@ task 'groom-myself', {
     say "Shaved.";
 }
 
-task "make-coffee", { 
+task "make-coffee", {
     my $cups = %*ENV<COFFEE_CUPS> // 2;
-    say "make $cups of coffee.  Shakes are gone." 
+    say "make $cups of coffee.  Shakes are gone."
 }
 
 task 'walk-dog', {

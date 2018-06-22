@@ -3,12 +3,12 @@ unit module Sake;
 our %TASKS;
 
 class Sake-Task {
-    has $.name = !!! 'name required';     
+    has $.name = !!! 'name required';
     has @.deps;                         # dependencies
     has &.body = !!! 'body required';   # code to execute for this task
     has &.cond = { True };              # only execute when True
 
-    method execute { 
+    method execute {
         return unless self.cond.();
         for self.deps -> $d { execute($d); }
         .() with self.body;
@@ -62,5 +62,3 @@ multi sub file(Pair $name-deps, &body) {
     };
     return make_task($name, sub { &body.(); touch($name) }, :@deps, :cond($cond));
 }
-
-
