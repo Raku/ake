@@ -18,7 +18,7 @@ class Sake-Task {
 
 sub execute($task) is export {
     if %TASKS{$task}:exists {
-        %TASKS{$task}.execute;
+        sink %TASKS{$task}.execute;
     } else {
         # TODO something more awesome here
         $*ERR.say("No task named $task...skipping");
