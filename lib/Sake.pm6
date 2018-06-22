@@ -46,7 +46,7 @@ multi sub task(Pair $name-deps, &body?) {
 proto sub file(|) is export { * }
 
 my sub touch (Str $filename) {
-    shell("touch $filename");
+    run ‘touch’, ‘--’, $filename;
 }
 
 multi sub file(Str $name, &body) {
