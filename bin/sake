@@ -4,8 +4,12 @@ use v6;
 use Sake;
 
 sub MAIN (*@tasks, :$file = 'Sakefile') {
-    die "No tasks given!" unless +@tasks > 0;
     die "Could not find file $file!" unless $file.IO ~~ :e;
     EVALFILE $file;
-    for @tasks -> $t {  execute($t); }
+    if @tasks < 1 {
+        note ‘No tasks given! Did you mean one of these?’;
+        note .indent: 4 for %Sake::TASKS.keys.sort;
+        exit 1
+    }
+    for @tasks -> $t { execute($t); }
 }
