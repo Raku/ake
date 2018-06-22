@@ -11,7 +11,7 @@ class Sake-Task {
     method execute {
         return unless self.cond.();
         for self.deps -> $d { execute($d); }
-        .() with self.body;
+        .(self) with self.body;
     }
 
 }
