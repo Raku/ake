@@ -27,19 +27,19 @@ sub execute($task) is export {
 
 proto sub task(|) is export { * }
 
-my sub make_task($name, &body, :@deps=[], :&cond={True}) {
+my sub make-task($name, &body, :@deps=[], :&cond={True}) {
     die "Duplicate task $name!" if %TASKS{~$name};
     %TASKS{~$name} = Sake-Task.new(:$name, :&body, :@deps, :&cond);
 }
 
 multi sub task(Str $name, &body) {
-    make_task($name, &body);
+    make-task($name, &body);
 }
 
 multi sub task(Pair $name-deps, &body?) {
     my ($name,$deps) := $name-deps.kv;      # unpack name and dependencies
     my @deps = $deps.list;                  # so that A => B and A => <B C D> both work
-    return make_task($name, &body, :@deps);
+    return make-task($name, &body, :@deps);
 }
 
 
@@ -50,7 +50,7 @@ my sub touch (Str $filename) {
 }
 
 multi sub file(Str $name, &body) {
-    return make_task($name, sub { &body.(); touch($name) }, :cond(sub { $name.path !~~ :e; }) );
+    return make-task($name, sub { &body.(); touch($name) }, :cond(sub { $name.path !~~ :e; }) );
 }
 
 multi sub file(Pair $name-deps, &body) {
@@ -60,5 +60,5 @@ multi sub file(Pair $name-deps, &body) {
         my $f = $name.path;
         !($f ~~ :e) || $f.modified < all(map { $_.modified }, grep { $_ ~~ IO::Path }, @deps);
     };
-    return make_task($name, sub { &body.(); touch($name) }, :@deps, :cond($cond));
+    return make-task($name, sub { &body.(); touch($name) }, :@deps, :cond($cond));
 }
