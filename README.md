@@ -1,6 +1,6 @@
 ## sake
 
-`sake` is a make-a-like implemented in Perl 6. It was inspired by
+`sake` is a make-alike implemented in Perl 6. It was inspired by
 [rake](https://github.com/ruby/rake).
 
 
