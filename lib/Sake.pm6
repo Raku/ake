@@ -50,7 +50,11 @@ my sub touch (Str $filename) {
 }
 
 multi sub file(Str $name, &body) {
-    return make-task($name, sub { &body.(); touch($name) }, :cond(sub { $name.path !~~ :e; }) );
+    return make-task(
+        $name,
+        { &body($_); touch $name },
+        :cond(sub { $name.path !~~ :e; })
+    )
 }
 
 multi sub file(Pair $name-deps, &body) {
@@ -60,5 +64,10 @@ multi sub file(Pair $name-deps, &body) {
         my $f = $name.path;
         !($f ~~ :e) || $f.modified < all(map { $_.modified }, grep { $_ ~~ IO::Path }, @deps);
     };
-    return make-task($name, sub { &body.(); touch($name) }, :@deps, :cond($cond));
+    return make-task(
+        $name,
+        { &body($_); touch $name },
+        :@deps,
+        :cond($cond)
+    )
 }
