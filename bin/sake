@@ -4,8 +4,9 @@ use v6;
 use Sake;
 
 sub MAIN (*@tasks, :$file = 'Sakefile') {
+    my $sake-file = look-for-sakefile($file.IO);
 
-    EVALFILE $file;
+    EVALFILE $sake-file;
     if @tasks < 1 {
         note ‘No tasks given! Did you mean one of these?’;
         note .indent: 4 for %Sake::TASKS.keys.sort;
@@ -17,12 +18,14 @@ sub MAIN (*@tasks, :$file = 'Sakefile') {
 sub look-for-sakefile(IO::Path $path) {
     return $path.absolute if $path.e;
 
-    while my $parent = $path.parent {
-        $parent = $parent.add('Sakefile');
-
-        if $parent.e {
-            return $parent.absolute;
+    my $cwd = $*CWD;
+    while (my $path-to-check = $cwd.parent) ne "/" {
+        my $file-to-check = $path-to-check.add('Sakefile');
+        if $file-to-check.e {
+            return $file-to-check.absolute;
         }
+
+        $cwd = $path-to-check;
     }
 
     die "Could not find file $path!";
