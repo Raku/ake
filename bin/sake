@@ -4,7 +4,7 @@ use v6;
 use Sake;
 
 sub MAIN (*@tasks, :$file = 'Sakefile') {
-    die "Could not find file $file!" unless $file.IO ~~ :e;
+
     EVALFILE $file;
     if @tasks < 1 {
         note ‘No tasks given! Did you mean one of these?’;
@@ -12,4 +12,18 @@ sub MAIN (*@tasks, :$file = 'Sakefile') {
         exit 1
     }
     for @tasks -> $t { execute($t); }
+}
+
+sub look-for-sakefile(IO::Path $path) {
+    return $path.absolute if $path.e;
+
+    while my $parent = $path.parent {
+        $parent = $parent.add('Sakefile');
+
+        if $parent.e {
+            return $parent.absolute;
+        }
+    }
+
+    die "Could not find file $path!";
 }
