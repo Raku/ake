@@ -53,7 +53,7 @@ multi sub file(Str $name, &body) {
     return make-task(
         $name,
         { &body($_); touch $name },
-        :cond(sub { $name.path !~~ :e; })
+        :cond(sub { $name.IO !~~ :e; })
     )
 }
 
