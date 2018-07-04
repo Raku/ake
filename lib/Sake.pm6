@@ -71,3 +71,7 @@ multi sub file(Pair $name-deps, &body) {
         :cond($cond)
     )
 }
+
+sub has-tasks() is export {
+    return %TASKS.keys.elems > 0;
+}

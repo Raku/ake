@@ -6,7 +6,6 @@ use Sake;
 sub MAIN (*@tasks, :$file = 'Sakefile') {
     my $sake-file = look-for-sakefile($file.IO);
 
-    EVALFILE $sake-file;
     if @tasks < 1 {
         note ‘No tasks given! Did you mean one of these?’;
         note .indent: 4 for %Sake::TASKS.keys.sort;
@@ -16,17 +15,22 @@ sub MAIN (*@tasks, :$file = 'Sakefile') {
 }
 
 sub look-for-sakefile(IO::Path $path) {
-    return $path.absolute if $path.e;
-
-    my $cwd = $*CWD;
-    while (my $path-to-check = $cwd.parent) ne "/" {
-        my $file-to-check = $path-to-check.add('Sakefile');
-        if $file-to-check.e {
-            return $file-to-check.absolute;
-        }
-
-        $cwd = $path-to-check;
+    if $path.e {
+        EVALFILE $path.absolute;
     }
 
-    die "Could not find file $path!";
+    my $path-to-check = $*CWD;
+    # Use repeat otherwise 'ne /' would end the loop before the sake file would be searched in '/'
+    repeat {
+        $path-to-check = $path-to-check.parent;
+        my $file-to-check = $path-to-check.add('Sakefile');
+        if $file-to-check.e {
+            EVALFILE $file-to-check.absolute;
+        }
+
+    } while $path-to-check ne "/";
+
+    if not has-tasks() {
+        die "No Sakefiles found";
+    }
 }
