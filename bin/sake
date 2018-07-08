@@ -4,7 +4,7 @@ use v6;
 use Sake;
 
 sub MAIN (*@tasks, :$file = 'Sakefile') {
-    my $sake-file = look-for-sakefile($file.IO);
+    look-for-sakefiles($file.IO);
 
     if @tasks < 1 {
         note ‘No tasks given! Did you mean one of these?’;
@@ -14,23 +14,4 @@ sub MAIN (*@tasks, :$file = 'Sakefile') {
     for @tasks -> $t { execute($t); }
 }
 
-sub look-for-sakefile(IO::Path $path) {
-    if $path.e {
-        EVALFILE $path.absolute;
-    }
 
-    my $path-to-check = $*CWD;
-    # Use repeat otherwise 'ne /' would end the loop before the sake file would be searched in '/'
-    repeat {
-        $path-to-check = $path-to-check.parent;
-        my $file-to-check = $path-to-check.add('Sakefile');
-        if $file-to-check.e {
-            EVALFILE $file-to-check.absolute;
-        }
-
-    } while $path-to-check ne "/";
-
-    if not has-tasks() {
-        die "No Sakefiles found";
-    }
-}
