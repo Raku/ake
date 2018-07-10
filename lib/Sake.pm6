@@ -28,7 +28,7 @@ sub execute($task) is export {
 proto sub task(|) is export { * }
 
 my sub make-task($name, &body, :@deps=[], :&cond={True}) {
-    die "Duplicate task $name!" if %TASKS{~$name};
+    return if %TASKS{~$name};
     %TASKS{~$name} = Sake-Task.new(:$name, :&body, :@deps, :&cond);
 }
 
@@ -53,7 +53,7 @@ multi sub file(Str $name, &body) {
     return make-task(
         $name,
         { &body($_); touch $name },
-        :cond(sub { $name.path !~~ :e; })
+        :cond(sub { $name.IO !~~ :e; })
     )
 }
 
@@ -70,4 +70,25 @@ multi sub file(Pair $name-deps, &body) {
         :@deps,
         :cond($cond)
     )
+}
+
+sub look-for-sakefiles(IO::Path $path) is export {
+    if $path.e {
+        EVALFILE $path.absolute;
+    }
+
+    my $path-to-check = $*CWD;
+    # Use repeat otherwise 'ne /' would end the loop before the sake file would be searched in '/'
+    repeat {
+        $path-to-check = $path-to-check.parent;
+        my $file-to-check = $path-to-check.add('Sakefile');
+        if $file-to-check.e {
+            EVALFILE $file-to-check.absolute;
+        }
+
+    } while $path-to-check ne "/";
+
+    if not %TASKS.elems > 0 {
+        die "No Sakefiles found";
+    }
 }

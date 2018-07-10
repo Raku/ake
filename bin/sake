@@ -4,8 +4,8 @@ use v6;
 use Sake;
 
 sub MAIN (*@tasks, :$file = 'Sakefile') {
-    die "Could not find file $file!" unless $file.IO ~~ :e;
-    EVALFILE $file;
+    look-for-sakefiles($file.IO);
+
     if @tasks < 1 {
         if %Sake::TASKS<default>:exists {
             execute('default');
@@ -18,3 +18,5 @@ sub MAIN (*@tasks, :$file = 'Sakefile') {
         for @tasks -> $t { execute($t); }
     }          
 }
+
+

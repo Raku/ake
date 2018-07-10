@@ -8,6 +8,6 @@
         "Sake": "lib/Sake.pm6"
     },
     "author"      : "Jonathan Scott Duff <duff@pobox.com>",
-    "depends"     : [],
+    "depends"     : ["File::Temp"],
     "source-url"  : "git://github.com/perl6/p6-sake.git"
 }
