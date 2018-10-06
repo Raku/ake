@@ -39,5 +39,5 @@ ok ‘wilma’.IO.e, ‘file exists’;
 
 for <fred dino bedrock clear-headed-fred wilma> {
     .IO.unlink if .IO.e;
-    rmdir $path;
 }
+rmdir $path;
