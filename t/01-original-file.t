@@ -5,6 +5,10 @@ use Test;
 
 plan 11;
 
+my $path = $*TMPDIR.add: ‘sake-’ ~ (^999999).pick;
+mkdir $path;
+chdir $path; # ugly but OK
+
 my $x = ‘’;
 
 my $t = file ‘fred’, { $x = ‘meth’ }
@@ -32,3 +36,8 @@ file ‘clear-headed-fred’, { $x = ‘again’ }
 is $x, ‘again’, ‘body is optional’;
 ok ‘clear-headed-fred’.IO.e, ‘file exists’;
 ok ‘wilma’.IO.e, ‘file exists’;
+
+for <fred dino bedrock clear-headed-fred wilma> {
+    .IO.unlink if .IO.e;
+    rmdir $path;
+}
