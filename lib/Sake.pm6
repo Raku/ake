@@ -1,73 +1,53 @@
+use Sake::Task;
+use Sake::TaskStore;
+use Sake::Task::IO;
+
+sub EXPORT {
+    %(
+        Sake::Task::EXPORT::DEFAULT::,
+        Sake::Task::IO::EXPORT::DEFAULT::,
+    )
+}
+
 unit module Sake;
 
-our %TASKS;
-
-class Sake-Task {
-    has $.name = !!! 'name required';
-    has @.deps;                         # dependencies
-    has &.body = !!! 'body required';   # code to execute for this task
-    has &.cond = { True };              # only execute when True
-
-    method execute {
-        return unless self.cond.();
-        for self.deps -> $d { execute($d); }
-        .(self) with self.body;
+multi execute(Str $task) {
+    if %TASKS{$task}:!exists {
+        note “Task “$task” does not exist”;
+        note did-you-mean;
+        exit 2
     }
-
+    execute %TASKS{$task}
 }
 
-sub execute($task) is export {
-    if %TASKS{$task}:exists {
-        sink %TASKS{$task}.execute;
-    } else {
-        # TODO something more awesome here
-        $*ERR.say("No task named $task...skipping");
+multi execute(Sake::Task $task) {
+    my $result = $task.execute;
+    $result ~~ Promise
+    ?? await $result
+    !! $result
+}
+
+multi execute(*@tasks) is export {
+    my @non-existent = @tasks.grep: { %TASKS{$_}:!exists };
+    if @non-existent {
+        note “Task “$_” does not exist” for @non-existent;
+        note did-you-mean;
+        exit 2
     }
+    (execute $_ for @tasks)
 }
 
-proto sub task(|) is export { * }
+sub sake-precheck(:$force = False) is export {
+    my @errors = gather resolve-deps;
+    if @errors {
+        .note for @errors;
 
-my sub make-task($name, &body, :@deps=[], :&cond={True}) {
-    die "Duplicate task $name!" if %TASKS{~$name};
-    %TASKS{~$name} = Sake-Task.new(:$name, :&body, :@deps, :&cond);
-}
-
-multi sub task(Str $name, &body) {
-    make-task($name, &body);
-}
-
-multi sub task(Pair $name-deps, &body?) {
-    my ($name,$deps) := $name-deps.kv;      # unpack name and dependencies
-    my @deps = $deps.list;                  # so that A => B and A => <B C D> both work
-    return make-task($name, &body, :@deps);
-}
-
-
-proto sub file(|) is export { * }
-
-my sub touch (Str $filename) {
-    run ‘touch’, ‘--’, $filename;
-}
-
-multi sub file(Str $name, &body) {
-    return make-task(
-        $name,
-        { &body($_); touch $name },
-        :cond(sub { $name.path !~~ :e; })
-    )
-}
-
-multi sub file(Pair $name-deps, &body) {
-    my ($name,$deps) := $name-deps.kv;      # unpack name and dependencies
-    my @deps = $deps.list;                  # so that A => B and A => <B C D> both work
-    my $cond = {
-        my $f = $name.path;
-        !($f ~~ :e) || $f.modified < all(map { $_.modified }, grep { $_ ~~ IO::Path }, @deps);
-    };
-    return make-task(
-        $name,
-        { &body($_); touch $name },
-        :@deps,
-        :cond($cond)
-    )
+        if $force {
+            note ‘’;
+            note ‘Continuing with errors because of the --force flag’;
+        } else {
+            note ‘Exiting. Use --force flag if you want to ignore these errors’;
+            exit 1
+        }
+    }
 }

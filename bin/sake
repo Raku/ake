@@ -3,13 +3,16 @@
 use v6;
 use Sake;
 
-sub MAIN (*@tasks, :$file = 'Sakefile') {
-    die "Could not find file $file!" unless $file.IO ~~ :e;
-    EVALFILE $file;
-    if @tasks < 1 {
-        note ‘No tasks given! Did you mean one of these?’;
-        note .indent: 4 for %Sake::TASKS.keys.sort;
-        exit 1
+sub MAIN(*@tasks,
+         :$file = ‘Sakefile’,
+         :$force = False,
+        ) {
+
+    if !$file.IO.e {
+        note “Could not find file $file!”;
+        exit 2
     }
-    for @tasks -> $t { execute($t); }
+    EVALFILE $file;
+    sake-precheck :$force;
+    execute @tasks || ‘default’
 }
