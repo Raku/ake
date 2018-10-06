@@ -9,5 +9,6 @@
     },
     "author"      : "Jonathan Scott Duff <duff@pobox.com>",
     "depends"     : [],
+    "test-depends": [ "File::Temp" ],
     "source-url"  : "git://github.com/perl6/p6-sake.git"
 }
