@@ -15,5 +15,5 @@ plan 1;
 
 given make-sake-directory ｢task ‘foo’, { put ‘hello’ }｣ {
     test-run ‘help ’,
-             <sake help>, :out(/Registered/);
+             <sake help>, :out("Registered tasks:\n\t✓ foo\n\t✓ help\n");
 }
