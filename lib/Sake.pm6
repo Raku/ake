@@ -11,6 +11,15 @@ sub EXPORT {
 
 unit module Sake;
 
+INIT {
+    task 'help', {
+        say "Registered tasks:";
+        for %TASKS.keys.sort {
+            say "\t✓ ", $_;
+        }
+    }
+}
+
 multi execute(Str $task) {
     if %TASKS{$task}:!exists {
         note “Task “$task” does not exist”;

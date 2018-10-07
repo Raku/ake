@@ -4,9 +4,11 @@ use Sake;
 use SakeTester;
 use Test;
 
-plan 2;
+plan 3;
 
 given make-sake-directory ｢task ‘foo’, { put ‘hello’ }｣ {
+    test-run ‘help ’,
+             <sake help>, :out(/Registered/);
     test-run ‘simple task’,
              <sake foo>, :out(“hello\n”)
 }
