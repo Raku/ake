@@ -9,4 +9,4 @@ install:
   - rakudobrew build zef
   - zef --debug --depsonly install .
   - cpanm -q --notest https://github.com/melezhik/outthentic.git
-  - strun --recu outthentic/
+  - PERL5_LIB=~/perl5/lib/perl5/:$PERL5_LIB PATH=~/perl5/local/bin:$PATH strun --recu outthentic/
