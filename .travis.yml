@@ -9,5 +9,5 @@ install:
   - rakudobrew build zef
   - zef --debug install .
   - cpanm --notest -q https://github.com/melezhik/outthentic.git
-test:
+after_success:
   - export PERL6LIB=$PWD/lib:$PERL6LIB && export PERL5LIB=~/perl5/lib/perl5/:$PERL5LIB && export PATH=$PWD/bin:~/perl5/bin:$PATH && strun --recu --root outthentic/
