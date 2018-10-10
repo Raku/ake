@@ -1,0 +1,7 @@
+task ‘run’, {
+    run ‘false’; # FAIL!!!
+}
+
+task ‘finish’ => ‘run’, {
+    say ‘finish’
+}
