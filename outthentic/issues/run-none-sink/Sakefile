@@ -3,5 +3,5 @@ task ‘run’, {
 }
 
 task ‘finish’ => ‘run’, {
-    say ‘finish’
+    say ‘the task is finished’
 }

@@ -1,2 +1,12 @@
 The spawned command 'false' exited unsuccessfully (exit code: 1)
 
+regexp: (.*)
+
+generator: <<CODE
+  [ 
+    "assert: ".( 
+        scalar @{ [ grep /the task is finished/, map { $_->[0] } @{captures()} ] } == 0 ? 1 : 0 
+      )." the task is finished is not presented in output" 
+  ]
+
+CODE
