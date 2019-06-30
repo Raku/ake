@@ -4,7 +4,7 @@ our %TASKS is export;
 
 sub make-task($name, &body,
               :@deps=[], :&cond={True}, :$type) is export {
-    if %TASKS{$name}:exists {
+    if %TASKS{$name}:exists and $name ne ‘help’ {
         note “Duplicate task $name”;
         exit 2
     }
