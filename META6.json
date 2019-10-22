@@ -1,7 +1,7 @@
 {
-    "perl"        : "6.*",
+    "perl"        : "6.c",
     "name"        : "sake",
-    "version"     : "0.0.2",
+    "version"     : "0.0.3",
     "license"     : "Artistic-2.0",
     "description" : "A make-a-like implemented in Perl 6",
     "provides"    : {
