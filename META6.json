@@ -3,7 +3,7 @@
     "name"        : "sake",
     "version"     : "0.0.3",
     "license"     : "Artistic-2.0",
-    "description" : "A make-a-like implemented in Perl 6",
+    "description" : "A make-a-like implemented in Raku",
     "provides"    : {
         "Sake"            : "lib/Sake.pm6",
         "Sake::Task"      : "lib/Sake/Task.pm6",
