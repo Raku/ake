@@ -12,8 +12,8 @@ Sake is easily installable with [`zef`](https://github.com/ugexe/zef):
 zef install sake
 ```
 
-If you are using `rakudobrew` you will need to run `rakudobrew rehash`
-to make `sake` executable available.
+If you are using `rakubrew` in `shim` mode you will need to run
+`rakubrew rehash` to make the `sake` executable available.
 
 
 ### Current status
