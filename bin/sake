@@ -1,7 +1,7 @@
 #!/usr/bin/env perl6
 
 use v6;
-use Sake;
+use Ake;
 
 sub MAIN(*@tasks,
          :$file = ‘Sakefile’,
@@ -13,6 +13,13 @@ sub MAIN(*@tasks,
         exit 2
     }
     EVALFILE $file;
-    sake-precheck :$force;
+    ake-precheck :$force;
     execute @tasks || ‘default’
+
+    say '';
+    say '==================== DEPRECATION NOTE ====================';
+    say '|           `sake` has been renamed to `ake`.            |';
+    say '|         Please consider using `ake` in the future.     |';
+    say '==========================================================';
+    say '';
 }

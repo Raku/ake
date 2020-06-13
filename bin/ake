@@ -1,0 +1,18 @@
+#!/usr/bin/env perl6
+
+use v6;
+use Ake;
+
+sub MAIN(*@tasks,
+         :$file = ‘Akefile’,
+         :$force = False,
+        ) {
+
+    if !$file.IO.e {
+        note “Could not find file $file!”;
+        exit 2
+    }
+    EVALFILE $file;
+    ake-precheck :$force;
+    execute @tasks || ‘default’
+}

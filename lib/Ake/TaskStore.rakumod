@@ -1,4 +1,4 @@
-unit module Sake::TaskStore;
+unit module Ake::TaskStore;
 
 our %TASKS is export;
 

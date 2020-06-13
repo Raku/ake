@@ -1,18 +1,18 @@
 use v6.c;
 use lib <lib/ t/lib>;
-use Sake;
-use SakeTester;
+use Ake;
+use AkeTester;
 use Test;
 
 plan 2;
 
 # Issue #7
-given make-sake-directory ｢task ‘foo’, { say .name }｣ {
+given make-ake-directory ｢task ‘foo’, { say .name }｣ {
     test-run ‘current task is passed to the block’,
-             <sake foo>, :out(“foo\n”)
+             <ake foo>, :out(“foo\n”)
 }
 skip ‘What should be done with IO task names?’, 1;
-#given make-sake-directory ｢task ‘foo’.IO, { say .name }｣ {
+#given make-ake-directory ｢task ‘foo’.IO, { say .name }｣ {
 #    test-run ‘current IO task is passed to the block’,
-#             <sake foo>, :out(“foo\n”)
+#             <ake foo>, :out(“foo\n”)
 #}
