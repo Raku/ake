@@ -1,6 +1,6 @@
-use Sake::TaskStore;
+use Ake::TaskStore;
 
-unit class Sake::Task;
+unit class Ake::Task;
 
 has $.name = !!! ‘name required’;
 has @.deps;                         #= Task dependencies
@@ -39,7 +39,7 @@ method readify {
 
 multi resolve-deps($task, :$live = False) is export {
     $task.deps .= map: {
-        do if $_ ~~ Sake::Task {
+        do if $_ ~~ Ake::Task {
             $_ # already resolved
         } elsif %TASKS{$_}:exists {
             %TASKS{$_}
@@ -64,9 +64,9 @@ multi resolve-deps is export {
 proto sub task(|) is export {*}
 
 multi sub task(Str $name, &body?) {
-    make-task $name, &body, type => Sake::Task
+    make-task $name, &body, type => Ake::Task
 }
 
 multi sub task(Pair (Str :key($name), :value($deps)), &body?) {
-    make-task $name, &body, type => Sake::Task, deps => $deps.list
+    make-task $name, &body, type => Ake::Task, deps => $deps.list
 }

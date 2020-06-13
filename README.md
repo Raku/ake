@@ -1,30 +1,30 @@
-## sake
+## ake
 
-`sake` is a make-a-like implemented in Raku. It was inspired by
+`ake` is a make-a-like implemented in Raku. It was inspired by
 [rake](https://github.com/ruby/rake).
 
 
 ### Installation
 
-Sake is easily installable with [`zef`](https://github.com/ugexe/zef):
+Ake is easily installable with [`zef`](https://github.com/ugexe/zef):
 
 ```sh
-zef install sake
+zef install ake
 ```
 
 If you are using `rakubrew` in `shim` mode you will need to run
-`rakubrew rehash` to make the `sake` executable available.
+`rakubrew rehash` to make the `ake` executable available.
 
 
 ### Current status
 
-Sake is fully-functional but may lack some advanced features. Feature
+Ake is fully-functional but may lack some advanced features. Feature
 requests and PRs are welcome!
 
 
 ### Example
 
-Create a file named `Sakefile` with these contents:
+Create a file named `Akefile` with these contents:
 
 ```raku
 task 'buy-food', {
@@ -42,10 +42,10 @@ task 'dinner' => <buy-food>, {
 }
 ```
 
-Then you will be able to run `sake` from the same directory
-(e.g. `sake morning`).
+Then you will be able to run `ake` from the same directory
+(e.g. `ake morning`).
 
 
 ### License
 
-Sake is available under Artistic License 2.0.
+Ake is available under Artistic License 2.0.

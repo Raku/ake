@@ -1,11 +1,11 @@
 use v6;
 use lib <lib/ t/lib>;
-use Sake;
+use Ake;
 use Test;
 
 plan 11;
 
-my $path = $*TMPDIR.add: ‘sake-’ ~ (^999999).pick;
+my $path = $*TMPDIR.add: ‘ake-’ ~ (^999999).pick;
 mkdir $path;
 chdir $path; # ugly but OK
 

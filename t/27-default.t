@@ -1,24 +1,24 @@
 use v6.c;
 use lib <lib/ t/lib>;
-use Sake;
-use SakeTester;
+use Ake;
+use AkeTester;
 use Test;
 
 plan 2;
 
-given make-sake-directory ｢
+given make-ake-directory ｢
   task ‘first’,   { put ‘first’      }
   task ‘default’, { put ‘default ok’ }
 ｣ {
     test-run ‘no task implies default’,
-             <sake>, :out(“default ok\n”)
+             <ake>, :out(“default ok\n”)
 }
 
-given make-sake-directory ｢
+given make-ake-directory ｢
   task ‘first’,   { put ‘first’      }
 ｣ {
     test-run ‘no task implies default’,
-             <sake>, :out(‘’),
+             <ake>, :out(‘’),
              :err(*), # TODO check & fix the error message
              :2exitcode
 }

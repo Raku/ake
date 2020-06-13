@@ -1,17 +1,17 @@
 use v6.c;
 use lib <lib/ t/lib>;
-use Sake;
-use SakeTester;
+use Ake;
+use AkeTester;
 use Test;
 
 plan 2;
 
-given make-sake-directory ｢task ‘foo’, { put ‘hello’ }｣ {
+given make-ake-directory ｢task ‘foo’, { put ‘hello’ }｣ {
     test-run ‘help ’,
-             <sake help>, :out(“Registered tasks:\n\t✓ foo\n\t✓ help\n”);
+             <ake help>, :out(“Registered tasks:\n\t✓ foo\n\t✓ help\n”);
 }
 
-given make-sake-directory ｢task ‘help’, { put ‘very helpful message’ }｣ {
+given make-ake-directory ｢task ‘help’, { put ‘very helpful message’ }｣ {
     test-run ‘help ’,
-             <sake help>, :out(“very helpful message\n”);
+             <ake help>, :out(“very helpful message\n”);
 }

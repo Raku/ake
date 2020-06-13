@@ -1,13 +1,13 @@
 use v6.c;
 use lib <lib/ t/lib>;
-use Sake;
-use SakeTester;
+use Ake;
+use AkeTester;
 use Test;
 
 plan 1;
 
-given make-sake-directory :filename(‘customfile’),
+given make-ake-directory :filename(‘customfile’),
                           ｢task ‘foo’, { put ‘hello’ }｣ {
-    test-run ‘custom sakefile name’,
-             <sake --file=customfile foo>, :out(“hello\n”)
+    test-run ‘custom akefile name’,
+             <ake --file=customfile foo>, :out(“hello\n”)
 }

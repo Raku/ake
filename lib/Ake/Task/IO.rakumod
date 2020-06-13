@@ -1,7 +1,7 @@
-use Sake::Task;
-use Sake::TaskStore;
+use Ake::Task;
+use Ake::TaskStore;
 
-unit class Sake::Task::IO is Sake::Task;
+unit class Ake::Task::IO is Ake::Task;
 
 method modification-time {
     $.name.IO.e
@@ -29,11 +29,11 @@ method execute {
 
 
 multi sub task(IO $path, &body?) is export {
-    make-task $path, &body, type => Sake::Task::IO
+    make-task $path, &body, type => Ake::Task::IO
 }
 
 multi sub task(Pair (IO :key($path), :value($deps)), &body?) is export {
-    make-task $path, &body, deps => $deps.list, type => Sake::Task::IO
+    make-task $path, &body, deps => $deps.list, type => Ake::Task::IO
 }
 
 

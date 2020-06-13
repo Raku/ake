@@ -1,6 +1,6 @@
 use v6;
 use lib <lib/ t/lib>;
-use Sake;
+use Ake;
 use Test;
 
 plan 5;

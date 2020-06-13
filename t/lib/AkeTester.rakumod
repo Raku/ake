@@ -1,9 +1,9 @@
-unit module SakeTester;
+unit module AkeTester;
 
 use File::Temp;
 use Test;
 
-sub make-sake-directory($contents, :$filename = ‘Sakefile’) is export {
+sub make-ake-directory($contents, :$filename = ‘Akefile’) is export {
     my $dir = tempdir.IO;
     $dir.add($filename).spurt: $contents;
     $dir

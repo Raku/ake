@@ -1,15 +1,15 @@
-use Sake::Task;
-use Sake::TaskStore;
-use Sake::Task::IO;
+use Ake::Task;
+use Ake::TaskStore;
+use Ake::Task::IO;
 
 sub EXPORT {
     %(
-        Sake::Task::EXPORT::DEFAULT::,
-        Sake::Task::IO::EXPORT::DEFAULT::,
+        Ake::Task::EXPORT::DEFAULT::,
+        Ake::Task::IO::EXPORT::DEFAULT::,
     )
 }
 
-unit module Sake;
+unit module Ake;
 
 INIT {
     task 'help', {
@@ -29,7 +29,7 @@ multi execute(Str $task) {
     execute %TASKS{$task}
 }
 
-multi execute(Sake::Task $task) {
+multi execute(Ake::Task $task) {
     my $result = $task.execute;
     $result ~~ Promise
     ?? await $result
@@ -46,7 +46,7 @@ multi execute(*@tasks) is export {
     (execute $_ for @tasks)
 }
 
-sub sake-precheck(:$force = False) is export {
+sub ake-precheck(:$force = False) is export {
     my @errors = gather resolve-deps;
     if @errors {
         .note for @errors;

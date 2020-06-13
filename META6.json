@@ -1,17 +1,18 @@
 {
     "perl"        : "6.c",
-    "name"        : "sake",
+    "name"        : "ake",
     "version"     : "0.0.3",
     "license"     : "Artistic-2.0",
     "description" : "A make-a-like implemented in Raku",
     "provides"    : {
-        "Sake"            : "lib/Sake.pm6",
-        "Sake::Task"      : "lib/Sake/Task.pm6",
-        "Sake::Task::IO"  : "lib/Sake/Task/IO.pm6",
-        "Sake::TaskStore" : "lib/Sake/TaskStore.pm6"
+        "Ake"            : "lib/Ake.rakumod",
+        "Sake"           : "lib/Sake.rakumod",
+        "Ake::Task"      : "lib/Ake/Task.rakumod",
+        "Ake::Task::IO"  : "lib/Ake/Task/IO.rakumod",
+        "Ake::TaskStore" : "lib/Ake/TaskStore.rakumod"
     },
     "author"      : "Jonathan Scott Duff <duff@pobox.com>",
     "depends"     : [],
     "test-depends": [ "File::Temp" ],
-    "source-url"  : "git://github.com/perl6/p6-sake.git"
+    "source-url"  : "git://github.com/Raku/raku-ake.git"
 }
