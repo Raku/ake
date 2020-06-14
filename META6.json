@@ -14,5 +14,5 @@
     "author"      : "Jonathan Scott Duff <duff@pobox.com>",
     "depends"     : [],
     "test-depends": [ "File::Temp" ],
-    "source-url"  : "git://github.com/Raku/raku-ake.git"
+    "source-url"  : "git://github.com/Raku/ake.git"
 }
