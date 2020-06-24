@@ -14,7 +14,7 @@ sub MAIN(*@tasks,
     }
     EVALFILE $file;
     ake-precheck :$force;
-    execute @tasks || ‘default’
+    execute @tasks || ‘default’;
 
     say '';
     say '==================== DEPRECATION NOTE ====================';
