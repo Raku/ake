@@ -9,7 +9,7 @@ sub EXPORT {
 
 unit module Sake;
 
-sub execute(*@tasks) is export is DEPRECATED{
+sub execute(*@tasks) is export is DEPRECATED {
     execute |@tasks;
 }
 
