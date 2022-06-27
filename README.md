@@ -1,4 +1,4 @@
-## ake
+## ake [![Tests on source](https://github.com/Raku/ake/actions/workflows/test.yaml/badge.svg)](https://github.com/Raku/ake/actions/workflows/test.yaml)
 
 `ake` is a make-a-like implemented in Raku. It was inspired by
 [rake](https://github.com/ruby/rake).
