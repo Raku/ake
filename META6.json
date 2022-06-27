@@ -11,7 +11,10 @@
         "Ake::Task::IO"  : "lib/Ake/Task/IO.rakumod",
         "Ake::TaskStore" : "lib/Ake/TaskStore.rakumod"
     },
-    "author"      : "Jonathan Scott Duff <duff@pobox.com>",
+    "authors"      : ["Jonathan Scott Duff <duff@pobox.com>",
+        "Alex Daniel",
+        "the Raku Community"],
+    "auth": "zef:raku-community-modules",
     "depends"     : [],
     "test-depends": [ "File::Temp" ],
     "source-url"  : "git://github.com/Raku/ake.git"
