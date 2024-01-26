@@ -19,8 +19,8 @@ sub test-run($description, *@args,
     $cwd //= CALLERS::(‘$_’);
     # TODO ↓ any better way ?
     $env = %(|$env,
-             PATH     => “{$*CWD.add: ‘bin’}:{$env<PATH>     // ‘’}”,
-             PERL6LIB => “{$*CWD.add: ‘lib’},{$env<PERL6LIB> // ‘’}”,
+             PATH    => “{$*CWD.add: ‘bin’}:{$env<PATH>    // ‘’}”,
+             RAKULIB => “{$*CWD.add: ‘lib’},{$env<RAKULIB> // ‘’}”,
             );
 
     subtest $description, {
